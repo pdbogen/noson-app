@@ -1,0 +1,24 @@
+rm -rf build/*
+mkdir -p build
+cd build
+
+export QT_DIR=/Users/Shared/Qt/5.9.8/ios
+export CMAKE_IOS_SDK_ROOT=/Applications/Xcode-10.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk
+
+cmake ../../backend -DCMAKE_SYSTEM_NAME=Darwin \
+-DIOS_PLATFORM=OS -DIOS_ARCH=arm64 -DCMAKE_SYSTEM_PROCESSOR=arm64 \
+-GXcode -DCMAKE_TOOLCHAIN_FILE=../ios_toolchain.cmake \
+-DCMAKE_IOS_SDK_ROOT=$CMAKE_IOS_SDK_ROOT \
+-DCMAKE_PREFIX_PATH=$QT_DIR \
+-DCMAKE_BUILD_TYPE=Release \
+-DQT_STATICPLUGIN=ON \
+-DQt5Core_DIR=$QT_DIR/lib/cmake/Qt5Core \
+-DQt5Gui_DIR=$QT_DIR/lib/cmake/Qt5Gui \
+-DQt5Qml_DIR=$QT_DIR/lib/cmake/Qt5Qml \
+-DQt5Network_DIR=$QT_DIR/lib/cmake/Qt5Network \
+-DQt5Quick_DIR=$QT_DIR/lib/cmake/Qt5Quick \
+-DQt5QuickControls2_DIR=$QT_DIR/lib/cmake/Qt5QuickControls2 \
+-DQt5Xml_DIR=$QT_DIR/lib/cmake/Qt5Xml \
+-DQt5Svg_DIR=$QT_DIR/lib/cmake/Qt5Svg \
+-DQt5Widgets_DIR=$QT_DIR/lib/cmake/Qt5Widgets \
+$@
