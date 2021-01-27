@@ -6,24 +6,26 @@ jobs:
   build:
     strategy:
       matrix:
-        arch: ["ubuntu-16.04", "ubuntu-18.04", "ubuntu-20.04"]
+        arch: ["ubuntu-18.04", "ubuntu-20.04"]
     name: Build
     runs-on: ${{matrix.arch}}
     steps:
     - name: install dependencies
       run: |
-        apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools \
-                        qtdeclarative5-dev qtdeclarative5-dev-tools \
-                        qtquickcontrols2-5-dev libqt5svg5-dev libqt5svg5 \
-                        qml-module-qt-labs-settings \
-                        qml-module-qtgraphicaleffects qml-module-qtqml-models2 \
-                        qml-module-qtquick2 qml-module-qtquick-controls2 \
-                        qml-module-qtquick-layouts \
-                        qml-module-qtquick-particles2 \
-                        qml-module-qtquick-templates2 \
-                        qml-module-qtquick-window2 zlib1g-dev libssl-dev \
-                        libflac-dev libflac++-dev libpulse-dev libdbus-1-dev \
-                        libqt5dbus5 build-essential git cmake
+        sudo apt-get update
+        for pkg in \
+            qtbase5-dev qttools5-dev qttools5-dev-tools qtdeclarative5-dev \
+            qtdeclarative5-dev-tools qtquickcontrols2-5-dev libqt5svg5-dev \
+            libqt5svg5 qml-module-qt-labs-settings qml-module-qtgraphicaleffects \
+            qml-module-qtqml-models2 qml-module-qtquick2
+            qml-module-qtquick-controls2 qml-module-qtquick-layouts \
+            qml-module-qtquick-particles2 qml-module-qtquick-templates2 \
+            qml-module-qtquick-window2 zlib1g-dev libssl-dev \
+            libflac-dev libflac++-dev libpulse-dev libdbus-1-dev \
+            libqt5dbus5 build-essential git cmake debhelper
+        do
+          sudo DEBIANT_FRONTEND=noninteractive apt-get -y install $pkg
+        done
     - name: Clone
       uses: actions/checkout@v2
     - name: build
