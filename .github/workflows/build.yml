@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: install dependencies
       run: |
-        apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools \
+        sudo apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools \
                         qtdeclarative5-dev qtdeclarative5-dev-tools \
                         qtquickcontrols2-5-dev libqt5svg5-dev libqt5svg5 \
                         qml-module-qt-labs-settings \
